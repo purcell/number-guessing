@@ -34,5 +34,14 @@ RSpec.describe ConsoleUI, 'session' do
         > No guesses remaining.
       EOF
     end
+
+    it "handles a correct guess" do
+      game = instance_double("game", :guess? => true, guesses_remaining: 1)
+      run_transcript(game, <<-EOF)
+        > Please enter your guess:
+        < 1
+        > That's correct!
+      EOF
+    end
   end
 end

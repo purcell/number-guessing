@@ -9,7 +9,10 @@ class ConsoleUI
       user_input = @input.gets
       return if ['', nil].include?(user_input)
       guess = user_input.to_i
-      game.guess?(guess)
+      if game.guess?(guess)
+        @output.puts("That's correct!")
+        return
+      end
       @output.puts("Sorry, that was wrong.")
     end
     @output.puts("No guesses remaining.")
