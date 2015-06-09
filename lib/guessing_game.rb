@@ -21,4 +21,8 @@ class GuessingGame
   def guesses
     @guesses.dup
   end
+
+  def guesses_remaining
+    MAX_GUESSES - @guesses.size
+  end
 end

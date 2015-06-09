@@ -61,4 +61,11 @@ RSpec.describe GuessingGame, 'logic' do
     game.guesses.shift
     expect(game.guesses).to eq([1, 2])
   end
+
+  it "reports whether any guesses remain" do
+    game = GuessingGame.new(1..2)
+    expect(game.guesses_remaining).to eq(GuessingGame::MAX_GUESSES)
+    game.guess?(1)
+    expect(game.guesses_remaining).to eq(GuessingGame::MAX_GUESSES - 1)
+  end
 end
