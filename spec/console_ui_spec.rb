@@ -44,4 +44,35 @@ RSpec.describe ConsoleUI, 'session' do
       EOF
     end
   end
+
+  context "with malformed input" do
+    it "halts on blank input" do
+      game = instance_double("game", :guess? => true, guesses_remaining: 1)
+      run_transcript(game, <<-EOF)
+        > Please enter your guess:
+      EOF
+    end
+
+    it "complains about non-numeric input" do
+      game = instance_double("game", :guess? => true, guesses_remaining: 1)
+      run_transcript(game, <<-EOF)
+        > Please enter your guess:
+        < BLAH
+        > Invalid input.
+        > Please enter your guess:
+      EOF
+    end
+
+    it "complains about out-of-range input" do
+      game = instance_double("game", guesses_remaining: 1)
+      expect(game).to receive(:guess?).and_raise(GuessingGame::InvalidGuess)
+      expect(game).to receive(:guesses_remaining).and_return(1, 1)
+      run_transcript(game, <<-EOF)
+        > Please enter your guess:
+        < 300
+        > Invalid input.
+        > Please enter your guess:
+      EOF
+    end
+  end
 end
