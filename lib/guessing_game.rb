@@ -4,9 +4,9 @@ class GuessingGame
 
   attr_reader :answer, :range, :max_guesses
 
-  def initialize(range, max_guesses: 6)
+  def initialize(range, max_guesses: 6, answer: rand(range))
     @range = range
-    @answer = rand(range)
+    @answer = answer
     @guesses = []
     @max_guesses = max_guesses
   end

@@ -73,4 +73,10 @@ RSpec.describe GuessingGame, 'logic' do
     game = GuessingGame.new(1..50)
     expect(game.range).to eq(1..50)
   end
+
+  it "allows the answer to be specified" do
+    game = GuessingGame.new(1..50, answer: 5)
+    expect(game.answer).to eq(5)
+    expect(game.guess?(5)).to eq(true)
+  end
 end
