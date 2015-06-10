@@ -11,6 +11,12 @@ RSpec.describe GuessingGame do
     expect(game.answer).to be <= 300
   end
 
+  it "chooses the answer randomly" do
+    srand(1234)
+    expect(GuessingGame.new(1..100).answer).to eq(48)
+    expect(GuessingGame.new(200..300).answer).to eq(283)
+  end
+
   it "doesn't change the answer" do
     game = GuessingGame.new(1..100)
     answer1 = game.answer
