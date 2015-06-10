@@ -1,21 +1,21 @@
 require 'guessing_game'
 
 class ConsoleUI
-  def initialize(input, output)
-    @input, @output = input, output
+  def initialize(input, output, game)
+    @input, @output, @game = input, output, game
   end
 
-  def run_game!(game)
-    write("The answer is between #{game.range.first} and #{game.range.last}.")
-    while game.guesses_remaining > 0
+  def run!
+    write("The answer is between #{@game.range.first} and #{@game.range.last}.")
+    while @game.guesses_remaining > 0
       guess = read_guess
       return unless guess
       begin
-        if game.guess!(guess)
+        if @game.guess!(guess)
           write("That's correct!")
           return
         end
-        write("Sorry, that was wrong. The answer is #{guess < game.answer ? 'higher' : 'lower'}.")
+        write("Sorry, that was wrong. The answer is #{guess < @game.answer ? 'higher' : 'lower'}.")
       rescue GuessingGame::InvalidGuess
         write("Invalid guess.")
       end

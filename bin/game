@@ -3,4 +3,4 @@
 $:.unshift(File.dirname(__FILE__) + "/../lib")
 require "console_ui"
 
-ConsoleUI.new(STDIN, STDOUT).run_game!(GuessingGame.new(1..100))
+ConsoleUI.new(STDIN, STDOUT, GuessingGame.new(1..100)).run!

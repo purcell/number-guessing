@@ -6,7 +6,7 @@ RSpec.describe ConsoleUI, 'session' do
     expected_output = s.scan(/^ *> ([^\n]*\n)/).flatten.join
     input  = StringIO.new(s.scan(/^ *< ([^\n]*\n)/).flatten.join)
     output = StringIO.new
-    ConsoleUI.new(input, output).run_game!(game)
+    ConsoleUI.new(input, output, game).run!
     expect(output.string).to eq(expected_output)
   end
 
