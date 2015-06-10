@@ -26,7 +26,7 @@ RSpec.describe ConsoleUI, 'session' do
     end
 
     it "handles a wrong guess" do
-      game = GuessingGame.new(1..5, max_guesses: 1)
+      game = GuessingGame.new(1..5, max_guesses: 1, answer: 5)
       run_transcript(game, <<-EOF)
         > Please enter your guess:
         < 1
