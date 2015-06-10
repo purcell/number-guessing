@@ -70,7 +70,7 @@ RSpec.describe ConsoleUI, 'session' do
       run_transcript(game, <<-EOF)
         > Please enter your guess:
         < 300
-        > Invalid input.
+        > Invalid guess.
         > Please enter your guess:
       EOF
     end

@@ -16,7 +16,7 @@ class ConsoleUI
         end
         write("Sorry, that was wrong.")
       rescue GuessingGame::InvalidGuess
-        write("Invalid input.")
+        write("Invalid guess.")
       end
     end
     write("No guesses remaining.")
