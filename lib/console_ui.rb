@@ -15,7 +15,7 @@ class ConsoleUI
           write("That's correct!")
           return
         end
-        write("Sorry, that was wrong.")
+        write("Sorry, that was wrong. The answer is #{guess < game.answer ? 'higher' : 'lower'}.")
       rescue GuessingGame::InvalidGuess
         write("Invalid guess.")
       end

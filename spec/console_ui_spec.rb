@@ -27,13 +27,24 @@ RSpec.describe ConsoleUI, 'session' do
       EOF
     end
 
-    it "handles a wrong guess" do
+    it "handles a guess which is too low" do
       game = GuessingGame.new(1..5, max_guesses: 1, answer: 5)
       run_transcript(game, <<-EOF)
         > The answer is between 1 and 5.
         > Please enter your guess:
         < 1
-        > Sorry, that was wrong.
+        > Sorry, that was wrong. The answer is higher.
+        > No guesses remaining.
+      EOF
+    end
+
+    it "handles a guess which is too high" do
+      game = GuessingGame.new(1..5, max_guesses: 1, answer: 3)
+      run_transcript(game, <<-EOF)
+        > The answer is between 1 and 5.
+        > Please enter your guess:
+        < 5
+        > Sorry, that was wrong. The answer is lower.
         > No guesses remaining.
       EOF
     end
