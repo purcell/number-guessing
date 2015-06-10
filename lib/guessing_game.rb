@@ -3,7 +3,7 @@ class GuessingGame
   class NoMoreGuesses < StandardError; end
   class InvalidGuess < StandardError; end
 
-  attr_reader :answer
+  attr_reader :answer, :range
 
   def initialize(range)
     @range = range

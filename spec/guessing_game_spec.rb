@@ -68,4 +68,9 @@ RSpec.describe GuessingGame, 'logic' do
     game.guess?(1)
     expect(game.guesses_remaining).to eq(GuessingGame::MAX_GUESSES - 1)
   end
+
+  it "allows the range to be queried" do
+    game = GuessingGame.new(1..50)
+    expect(game.range).to eq(1..50)
+  end
 end
