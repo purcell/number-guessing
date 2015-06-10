@@ -6,6 +6,7 @@ class ConsoleUI
   end
 
   def run_game!(game)
+    write("The answer is between #{game.range.first} and #{game.range.last}.")
     while game.guesses_remaining > 0
       guess = read_guess
       return unless guess

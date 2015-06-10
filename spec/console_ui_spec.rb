@@ -14,6 +14,7 @@ RSpec.describe ConsoleUI, 'session' do
     it "prompts for a guess and halts on blank input" do
       game = GuessingGame.new(1..50)
       run_transcript(game, <<-EOF)
+        > The answer is between 1 and 50.
         > Please enter your guess:
       EOF
     end
@@ -21,6 +22,7 @@ RSpec.describe ConsoleUI, 'session' do
     it "doesn't prompt when no guesses remain" do
       game = GuessingGame.new(1..10, max_guesses: 0)
       run_transcript(game, <<-EOF)
+        > The answer is between 1 and 10.
         > No guesses remaining.
       EOF
     end
@@ -28,6 +30,7 @@ RSpec.describe ConsoleUI, 'session' do
     it "handles a wrong guess" do
       game = GuessingGame.new(1..5, max_guesses: 1, answer: 5)
       run_transcript(game, <<-EOF)
+        > The answer is between 1 and 5.
         > Please enter your guess:
         < 1
         > Sorry, that was wrong.
@@ -38,6 +41,7 @@ RSpec.describe ConsoleUI, 'session' do
     it "handles a correct guess" do
       game = GuessingGame.new(1..1)
       run_transcript(game, <<-EOF)
+        > The answer is between 1 and 1.
         > Please enter your guess:
         < 1
         > That's correct!
@@ -49,6 +53,7 @@ RSpec.describe ConsoleUI, 'session' do
     it "complains about non-numeric input" do
       game = GuessingGame.new(1..5)
       run_transcript(game, <<-EOF)
+        > The answer is between 1 and 5.
         > Please enter your guess:
         < BLAH
         > Invalid input.
@@ -59,6 +64,7 @@ RSpec.describe ConsoleUI, 'session' do
     it "complains about out-of-range input" do
       game = GuessingGame.new(1..5)
       run_transcript(game, <<-EOF)
+        > The answer is between 1 and 5.
         > Please enter your guess:
         < 300
         > Invalid guess.
