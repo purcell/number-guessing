@@ -31,7 +31,7 @@ RSpec.describe GuessingGame, 'logic' do
 
   it "limits guesses by raising an error" do
     game = GuessingGame.new(1..2)
-    GuessingGame::MAX_GUESSES.times { game.guess?(1) }
+    game.max_guesses.times { game.guess?(1) }
     expect { game.guess?(2) }.to raise_error(GuessingGame::NoMoreGuesses)
   end
 
@@ -41,8 +41,8 @@ RSpec.describe GuessingGame, 'logic' do
   end
 
   it "doesn't count invalid guesses towards the guess limit" do
-    game = GuessingGame.new(1..2)
-    (GuessingGame::MAX_GUESSES + 1).times do
+    game = GuessingGame.new(1..2, max_guesses: 1)
+    2.times do
       expect { game.guess?(3) }.to raise_error(GuessingGame::InvalidGuess)
     end
   end
@@ -64,9 +64,9 @@ RSpec.describe GuessingGame, 'logic' do
 
   it "reports whether any guesses remain" do
     game = GuessingGame.new(1..2)
-    expect(game.guesses_remaining).to eq(GuessingGame::MAX_GUESSES)
+    expect(game.guesses_remaining).to eq(game.max_guesses)
     game.guess?(1)
-    expect(game.guesses_remaining).to eq(GuessingGame::MAX_GUESSES - 1)
+    expect(game.guesses_remaining).to eq(game.max_guesses - 1)
   end
 
   it "allows the range to be queried" do
