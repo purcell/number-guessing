@@ -13,7 +13,7 @@ class GuessingGame
 
   def guess!(n)
     raise InvalidGuess.new("#{n} is not in the range #{@range}") unless @range === n
-    raise NoMoreGuesses if @guesses.size >= max_guesses
+    raise NoMoreGuesses if @guesses.size == max_guesses
     @guesses << n
     n == answer
   end
