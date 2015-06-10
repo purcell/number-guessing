@@ -1,4 +1,5 @@
 require 'console_ui'
+require 'guessing_game'
 
 RSpec.describe ConsoleUI, 'session' do
   def run_transcript(game, s)
@@ -10,23 +11,22 @@ RSpec.describe ConsoleUI, 'session' do
   end
 
   context "with well-formed input" do
-    it "prompts for a guess" do
-      game = instance_double("game", guesses_remaining: 1)
+    it "prompts for a guess and halts on blank input" do
+      game = GuessingGame.new(1..50)
       run_transcript(game, <<-EOF)
         > Please enter your guess:
       EOF
     end
 
     it "doesn't prompt when no guesses remain" do
-      game = instance_double("game", guesses_remaining: 0)
+      game = GuessingGame.new(1..10, max_guesses: 0)
       run_transcript(game, <<-EOF)
         > No guesses remaining.
       EOF
     end
 
     it "handles a wrong guess" do
-      game = instance_double("game", :guess? => false)
-      expect(game).to receive(:guesses_remaining).and_return(1, 0)
+      game = GuessingGame.new(1..5, max_guesses: 1)
       run_transcript(game, <<-EOF)
         > Please enter your guess:
         < 1
@@ -36,7 +36,7 @@ RSpec.describe ConsoleUI, 'session' do
     end
 
     it "handles a correct guess" do
-      game = instance_double("game", :guess? => true, guesses_remaining: 1)
+      game = GuessingGame.new(1..1)
       run_transcript(game, <<-EOF)
         > Please enter your guess:
         < 1
@@ -46,15 +46,8 @@ RSpec.describe ConsoleUI, 'session' do
   end
 
   context "with malformed input" do
-    it "halts on blank input" do
-      game = instance_double("game", :guess? => true, guesses_remaining: 1)
-      run_transcript(game, <<-EOF)
-        > Please enter your guess:
-      EOF
-    end
-
     it "complains about non-numeric input" do
-      game = instance_double("game", :guess? => true, guesses_remaining: 1)
+      game = GuessingGame.new(1..5)
       run_transcript(game, <<-EOF)
         > Please enter your guess:
         < BLAH
@@ -64,9 +57,7 @@ RSpec.describe ConsoleUI, 'session' do
     end
 
     it "complains about out-of-range input" do
-      game = instance_double("game", guesses_remaining: 1)
-      expect(game).to receive(:guess?).and_raise(GuessingGame::InvalidGuess)
-      expect(game).to receive(:guesses_remaining).and_return(1, 1)
+      game = GuessingGame.new(1..5)
       run_transcript(game, <<-EOF)
         > Please enter your guess:
         < 300
