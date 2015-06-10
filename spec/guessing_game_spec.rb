@@ -1,6 +1,6 @@
 require 'guessing_game'
 
-RSpec.describe GuessingGame, 'logic' do
+RSpec.describe GuessingGame do
   it "chooses a number in a given range" do
     game = GuessingGame.new(1..100)
     expect(game.answer).to be >= 1
