@@ -23,7 +23,7 @@ RSpec.describe ConsoleUI, 'session' do
       game = GuessingGame.new(1..10, max_guesses: 0)
       run_transcript(game, <<-EOF)
         > The answer is between 1 and 10.
-        > No guesses remaining.
+        > No guesses remaining. The answer was #{game.answer}.
       EOF
     end
 
@@ -34,7 +34,7 @@ RSpec.describe ConsoleUI, 'session' do
         > Please enter your guess:
         < 1
         > Sorry, that was wrong. The answer is higher.
-        > No guesses remaining.
+        > No guesses remaining. The answer was 5.
       EOF
     end
 
@@ -45,7 +45,7 @@ RSpec.describe ConsoleUI, 'session' do
         > Please enter your guess:
         < 5
         > Sorry, that was wrong. The answer is lower.
-        > No guesses remaining.
+        > No guesses remaining. The answer was 3.
       EOF
     end
 

@@ -20,7 +20,7 @@ class ConsoleUI
         write("Invalid guess.")
       end
     end
-    write("No guesses remaining.")
+    write("No guesses remaining. The answer was #{@game.answer}.")
   end
 
   private
