@@ -11,7 +11,7 @@ class GuessingGame
     @max_guesses = max_guesses
   end
 
-  def guess?(n)
+  def guess!(n)
     raise InvalidGuess.new("#{n} is not in the range #{@range}") unless @range === n
     raise NoMoreGuesses if @guesses.size >= max_guesses
     @guesses << n

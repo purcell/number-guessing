@@ -19,45 +19,45 @@ RSpec.describe GuessingGame, 'logic' do
 
   it "allows a winning guess" do
     game = GuessingGame.new(1..1)
-    expect(game.guess?(1)).to eq(true)
+    expect(game.guess!(1)).to eq(true)
   end
 
   it "allows a losing guess" do
     game = GuessingGame.new(1..2)
-    result1 = game.guess?(1)
-    result2 = game.guess?(2)
+    result1 = game.guess!(1)
+    result2 = game.guess!(2)
     expect(result1).not_to eq(result2)
   end
 
   it "limits guesses by raising an error" do
     game = GuessingGame.new(1..2)
-    game.max_guesses.times { game.guess?(1) }
-    expect { game.guess?(2) }.to raise_error(GuessingGame::NoMoreGuesses)
+    game.max_guesses.times { game.guess!(1) }
+    expect { game.guess!(2) }.to raise_error(GuessingGame::NoMoreGuesses)
   end
 
   it "rejects guesses out of the correct range" do
     game = GuessingGame.new(1..2)
-    expect { game.guess?(3) }.to raise_error(GuessingGame::InvalidGuess)
+    expect { game.guess!(3) }.to raise_error(GuessingGame::InvalidGuess)
   end
 
   it "doesn't count invalid guesses towards the guess limit" do
     game = GuessingGame.new(1..2, max_guesses: 1)
     2.times do
-      expect { game.guess?(3) }.to raise_error(GuessingGame::InvalidGuess)
+      expect { game.guess!(3) }.to raise_error(GuessingGame::InvalidGuess)
     end
   end
 
   it "remembers guesses" do
     game = GuessingGame.new(1..2)
-    game.guess?(1)
-    game.guess?(2)
+    game.guess!(1)
+    game.guess!(2)
     expect(game.guesses).to eq([1, 2])
   end
 
   it "allows remembered guesses to be spoofed" do
     game = GuessingGame.new(1..2)
-    game.guess?(1)
-    game.guess?(2)
+    game.guess!(1)
+    game.guess!(2)
     game.guesses.shift
     expect(game.guesses).to eq([1, 2])
   end
@@ -65,7 +65,7 @@ RSpec.describe GuessingGame, 'logic' do
   it "reports whether any guesses remain" do
     game = GuessingGame.new(1..2)
     expect(game.guesses_remaining).to eq(game.max_guesses)
-    game.guess?(1)
+    game.guess!(1)
     expect(game.guesses_remaining).to eq(game.max_guesses - 1)
   end
 
@@ -77,6 +77,6 @@ RSpec.describe GuessingGame, 'logic' do
   it "allows the answer to be specified" do
     game = GuessingGame.new(1..50, answer: 5)
     expect(game.answer).to eq(5)
-    expect(game.guess?(5)).to eq(true)
+    expect(game.guess!(5)).to eq(true)
   end
 end

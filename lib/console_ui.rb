@@ -11,7 +11,7 @@ class ConsoleUI
       guess = read_guess
       return unless guess
       begin
-        if game.guess?(guess)
+        if game.guess!(guess)
           write("That's correct!")
           return
         end
