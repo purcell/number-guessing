@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+$:.unshift(File.dirname(__FILE__) + "/../lib")
+puts $:.inspect
+require "console_ui"
+
+ConsoleUI.new(STDIN, STDOUT).run_game!(GuessingGame.new(1..100))

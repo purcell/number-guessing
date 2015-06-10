@@ -1,3 +1,5 @@
+require 'guessing_game'
+
 class ConsoleUI
   def initialize(input, output)
     @input, @output = input, output
